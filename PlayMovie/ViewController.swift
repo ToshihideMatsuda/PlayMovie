@@ -17,8 +17,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ("もいもい_なーんだ", "mov"),
         ("もいもい", "mov"),
         ("シナぷしゅオープニング", "mov"),
-        ("シナぷしゅ猫回", "mov"),
         ("シナぷしゅ_いないいないばぁ", "mov"),
+        ("シナぷしゅ_幼児", "mov"),
+        ("シナぷしゅ_幼児２", "mov"),
+        ("シナぷしゅ_幼児エンディング", "mov"),
+        ("シナぷしゅ_お侍", "mov"),
+        ("シナぷしゅ猫回", "mov"),
         ("あべこべ", "mov"),
     ]
     
