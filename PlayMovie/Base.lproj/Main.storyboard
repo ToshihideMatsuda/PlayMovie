@@ -64,7 +64,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2DN-xE-DnS" userLabel="CloseButton">
-                                        <rect key="frame" x="1280" y="100" width="66" height="56"/>
+                                        <rect key="frame" x="1290" y="100" width="66" height="56"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="TQW-bw-gPH"/>
                                             <constraint firstAttribute="width" constant="66" id="q5x-2U-dEz"/>
@@ -76,8 +76,22 @@
                                             <action selector="tapClose:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U0B-AF-jGo"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUy-dd-y9e" userLabel="RepeatButton">
+                                        <rect key="frame" x="1290" y="176" width="66" height="56"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="66" id="7IT-Hl-CZk"/>
+                                            <constraint firstAttribute="height" constant="56" id="bk2-wH-MZW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="➡️"/>
+                                        <state key="selected" title="🔁"/>
+                                        <connections>
+                                            <action selector="tapRepeate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cch-Z9-iXO"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" tag="-1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXf-z7-2Ou" userLabel="PrevGo">
-                                        <rect key="frame" x="20" y="462" width="66" height="56"/>
+                                        <rect key="frame" x="10" y="462" width="66" height="56"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="66" id="5Ya-Tg-o77"/>
                                             <constraint firstAttribute="height" constant="56" id="Jg9-3D-yJ7"/>
@@ -90,7 +104,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Chm-Sb-dSP" userLabel="NextGo">
-                                        <rect key="frame" x="1280" y="462" width="66" height="56"/>
+                                        <rect key="frame" x="1290" y="462" width="66" height="56"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="weC-th-tut"/>
                                             <constraint firstAttribute="width" constant="66" id="zng-Os-qfi"/>
@@ -108,12 +122,14 @@
                                     <constraint firstItem="Chm-Sb-dSP" firstAttribute="centerY" secondItem="x6R-GV-Yax" secondAttribute="centerY" id="9ae-7Y-nkG"/>
                                     <constraint firstAttribute="bottom" secondItem="Agb-Ej-wMV" secondAttribute="bottom" id="IeV-Wc-8BW"/>
                                     <constraint firstItem="wXf-z7-2Ou" firstAttribute="centerY" secondItem="x6R-GV-Yax" secondAttribute="centerY" id="PpS-ro-ep4"/>
-                                    <constraint firstAttribute="trailing" secondItem="Chm-Sb-dSP" secondAttribute="trailing" constant="20" id="R5y-Uy-NGq"/>
-                                    <constraint firstItem="wXf-z7-2Ou" firstAttribute="leading" secondItem="x6R-GV-Yax" secondAttribute="leading" constant="20" id="aqf-i6-KgF"/>
+                                    <constraint firstAttribute="trailing" secondItem="Chm-Sb-dSP" secondAttribute="trailing" constant="10" id="R5y-Uy-NGq"/>
+                                    <constraint firstItem="wXf-z7-2Ou" firstAttribute="leading" secondItem="x6R-GV-Yax" secondAttribute="leading" constant="10" id="aqf-i6-KgF"/>
                                     <constraint firstItem="2DN-xE-DnS" firstAttribute="top" secondItem="x6R-GV-Yax" secondAttribute="top" constant="100" id="eDq-OS-a6U"/>
+                                    <constraint firstItem="BUy-dd-y9e" firstAttribute="top" secondItem="2DN-xE-DnS" secondAttribute="bottom" constant="20" id="fHY-zN-U9Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="BUy-dd-y9e" secondAttribute="trailing" constant="10" id="gRW-Py-04c"/>
                                     <constraint firstAttribute="trailing" secondItem="Agb-Ej-wMV" secondAttribute="trailing" id="lzh-HP-wJe"/>
                                     <constraint firstItem="Agb-Ej-wMV" firstAttribute="leading" secondItem="x6R-GV-Yax" secondAttribute="leading" id="nvZ-s4-Oea"/>
-                                    <constraint firstAttribute="trailing" secondItem="2DN-xE-DnS" secondAttribute="trailing" constant="20" id="wHB-xo-Iga"/>
+                                    <constraint firstAttribute="trailing" secondItem="2DN-xE-DnS" secondAttribute="trailing" constant="10" id="wHB-xo-Iga"/>
                                     <constraint firstItem="Agb-Ej-wMV" firstAttribute="top" secondItem="x6R-GV-Yax" secondAttribute="top" id="xUr-Sv-glW"/>
                                 </constraints>
                             </view>
@@ -134,6 +150,7 @@
                         <outlet property="movieView" destination="x6R-GV-Yax" id="9fx-D4-ySj"/>
                         <outlet property="nextGoButton" destination="Chm-Sb-dSP" id="AcW-Nb-cK4"/>
                         <outlet property="prevGoButton" destination="wXf-z7-2Ou" id="oAD-kX-LGW"/>
+                        <outlet property="repeateButton" destination="BUy-dd-y9e" id="2C5-7X-qGA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

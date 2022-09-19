@@ -16,10 +16,12 @@ enum PlayMode {
 class ViewController: UIViewController {
     
     
-    @IBOutlet var prevGoButton: UIButton!
-    @IBOutlet var nextGoButton: UIButton!
+    @IBOutlet weak var prevGoButton: UIButton!
+    @IBOutlet weak var nextGoButton: UIButton!
+    @IBOutlet weak var repeateButton: UIButton!
     @IBOutlet weak var movieView: UIView!
     @IBOutlet weak var movieContainer: UIView!
+    
     
     private var player:AVPlayer?;
     weak private var playerVc:AVPlayerViewController?
@@ -77,6 +79,9 @@ class ViewController: UIViewController {
         tapRandomShow(self)
     }
     
+    @IBAction func tapRepeate(_ sender: Any) {
+        self.repeateButton.isSelected.toggle()
+    }
     
     @IBAction func tapClose(_ sender: Any) {
         self.movieView.isHidden = true
@@ -122,9 +127,11 @@ class ViewController: UIViewController {
         if mode == .select {
             self.nextGoButton.isHidden = true
             self.prevGoButton.isHidden = true
+            self.repeateButton.isHidden = true
         } else if mode == .random {
             self.nextGoButton.isHidden = false
             self.prevGoButton.isHidden = false
+            self.repeateButton.isHidden = false
         }
         
         if let playerVc = self.playerVc {
@@ -143,7 +150,7 @@ class ViewController: UIViewController {
     @objc private func playerItemDidReachEnd(_ notification: Notification) {
         // 動画を最初に巻き戻す
         self.player?.currentItem?.seek(to: CMTime.zero, completionHandler: { _ in
-            if self.mode == .select {
+            if self.mode == .select || self.repeateButton.isSelected {
                 self.player?.play()
             } else if self.mode == .random {
                 self.playIndx += 1;
