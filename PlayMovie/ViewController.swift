@@ -72,7 +72,11 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        SceneDelegate.shared.mainVc = self
+        
+        tapRandomShow(self)
     }
+    
     
     @IBAction func tapClose(_ sender: Any) {
         self.movieView.isHidden = true
