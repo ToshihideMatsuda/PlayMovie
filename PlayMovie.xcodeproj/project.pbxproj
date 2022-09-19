@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		893236C028D89B0B00E49281 /* タチウオバンザイ.mov in Resources */ = {isa = PBXBuildFile; fileRef = 893236BF28D89B0B00E49281 /* タチウオバンザイ.mov */; };
+		893236C128D89B0B00E49281 /* タチウオバンザイ.mov in Resources */ = {isa = PBXBuildFile; fileRef = 893236BF28D89B0B00E49281 /* タチウオバンザイ.mov */; };
 		89512143289AB5DF00DFEA26 /* シナぷしゅ_幼児.mov in Resources */ = {isa = PBXBuildFile; fileRef = 89512142289AB5DF00DFEA26 /* シナぷしゅ_幼児.mov */; };
 		89512144289AB5DF00DFEA26 /* シナぷしゅ_幼児.mov in Resources */ = {isa = PBXBuildFile; fileRef = 89512142289AB5DF00DFEA26 /* シナぷしゅ_幼児.mov */; };
 		89512146289AB5E500DFEA26 /* シナぷしゅ_お侍.mov in Resources */ = {isa = PBXBuildFile; fileRef = 89512145289AB5E500DFEA26 /* シナぷしゅ_お侍.mov */; };
@@ -59,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		893236BF28D89B0B00E49281 /* タチウオバンザイ.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "タチウオバンザイ.mov"; sourceTree = "<group>"; };
 		89512142289AB5DF00DFEA26 /* シナぷしゅ_幼児.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "シナぷしゅ_幼児.mov"; sourceTree = "<group>"; };
 		89512145289AB5E500DFEA26 /* シナぷしゅ_お侍.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "シナぷしゅ_お侍.mov"; sourceTree = "<group>"; };
 		89512148289AB8A400DFEA26 /* シナぷしゅ_幼児２.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "シナぷしゅ_幼児２.mov"; sourceTree = "<group>"; };
@@ -168,6 +171,7 @@
 		899EB06127F04914006A9F4D /* Resorces */ = {
 			isa = PBXGroup;
 			children = (
+				893236BF28D89B0B00E49281 /* タチウオバンザイ.mov */,
 				89512145289AB5E500DFEA26 /* シナぷしゅ_お侍.mov */,
 				89512142289AB5DF00DFEA26 /* シナぷしゅ_幼児.mov */,
 				89512148289AB8A400DFEA26 /* シナぷしゅ_幼児２.mov */,
@@ -296,6 +300,7 @@
 				899EB07627F0619C006A9F4D /* あべこべ.mov in Resources */,
 				899EB03C27F04807006A9F4D /* LaunchScreen.storyboard in Resources */,
 				89B3F2CF283933CA0078E815 /* もいもい_なーんだ.mov in Resources */,
+				893236C028D89B0B00E49281 /* タチウオバンザイ.mov in Resources */,
 				899EB03927F04807006A9F4D /* Assets.xcassets in Resources */,
 				899EB03727F04802006A9F4D /* Main.storyboard in Resources */,
 				89512146289AB5E500DFEA26 /* シナぷしゅ_お侍.mov in Resources */,
@@ -326,6 +331,7 @@
 				899EB06C27F04972006A9F4D /* もいもい.mov in Resources */,
 				899EB07427F0618A006A9F4D /* あべこべ.mov in Resources */,
 				899EB06B27F04972006A9F4D /* シナぷしゅ猫回.mov in Resources */,
+				893236C128D89B0B00E49281 /* タチウオバンザイ.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
