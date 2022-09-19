@@ -8,14 +8,44 @@
 import UIKit
 import AVKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+enum PlayMode {
+    case select
+    case random
+}
+
+class ViewController: UIViewController {
     
+    
+    @IBOutlet var prevGoButton: UIButton!
+    @IBOutlet var nextGoButton: UIButton!
+    @IBOutlet weak var movieView: UIView!
+    @IBOutlet weak var movieContainer: UIView!
     
     private var player:AVPlayer?;
-    private var table:UITableViewController?
-    private let videoNames:[(title:String,ext:String)] = [
+    weak private var playerVc:AVPlayerViewController?
+    fileprivate var table:UITableViewController?
+    private var _selectManager:SelectVideoShowManager? = nil
+    private var selectManager:SelectVideoShowManager? {
+        get {
+            if _selectManager == nil { _selectManager = SelectVideoShowManager(mainVc: self) }
+            return _selectManager
+        }
+    }
+    fileprivate var mode:PlayMode = .select
+    fileprivate var playIndx:Int = 0 {
+        didSet {
+            if playIndx < 0 || videoUrlList.count <= playIndx {
+                self.playIndx = (self.playIndx + videoUrlList.count) % videoUrlList.count
+            } else if playIndx == 0 {
+                self.videoUrlListRandom = videoUrlList.shuffled()
+            }
+        }
+    }
+    
+    fileprivate let videoNames:[(title:String,ext:String)] = [
         ("もいもい_なーんだ", "mov"),
         ("もいもい", "mov"),
+        ("タチウオバンザイ", "mov"),
         ("シナぷしゅオープニング", "mov"),
         ("シナぷしゅ_いないいないばぁ", "mov"),
         ("シナぷしゅ_幼児", "mov"),
@@ -27,7 +57,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     ]
     
     private lazy var videoUrlList:[URL] = videoNames.compactMap {  Bundle.main.url(forResource: $0.title, withExtension: $0.ext) };
-
+    private var videoUrlListRandom:[URL] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,47 +71,112 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        tapSelectVideo(self)
+        super.viewDidAppear(animated)
+    }
+    
+    @IBAction func tapClose(_ sender: Any) {
+        self.movieView.isHidden = true
+        self.player?.pause()
+        self.movieContainer.subviews.forEach{ $0.removeFromSuperview() }
+        self.playerVc?.removeFromParent()
+    }
+    
+    @IBAction func tapGoButton(_ sender: Any) {
+        guard let btn = sender as? UIButton else { return }
+        self.playIndx = self.playIndx + btn.tag
+        showVideo();
+    }
+    
+    @IBAction func tapRandomShow(_ sender: Any) {
+        self.mode = .random
+        self.playIndx = 0
+        self.playerVc = nil
+        showVideo();
     }
     
     @IBAction func tapSelectVideo(_ sender: Any) {
+        self.mode = .select
         self.table = UITableViewController();
-        table?.tableView.delegate = self
-        table?.tableView.dataSource = self
+        self.playerVc = nil
+        
+        table?.tableView.delegate = self.selectManager
+        table?.tableView.dataSource = self.selectManager
         table?.title = "動画選択"
         table?.modalPresentationStyle = .formSheet
         self.present(table!, animated: true, completion: nil)
     }
     
-    fileprivate func showVideo(_ no : Int) {
-        let playerViewController = AVPlayerViewController()
-        self.player = AVPlayer(url: videoUrlList[no])
-        playerViewController.player = self.player
-        playerViewController.modalPresentationStyle = .overFullScreen
-        self.present(playerViewController, animated: true, completion: { self.player?.play() })
+    fileprivate func showVideo(_ no : Int = -1, showPlayer:Bool = true) {
+        guard let url = (mode == .select) ? videoUrlList[no] :
+                        (mode == .random) ? videoUrlListRandom[self.playIndx] :
+                        /* invalid mode */ nil else { return }
         
+        self.player?.pause()
+        self.player = AVPlayer(url: url)
+        
+        self.movieView.isHidden = false
+        if mode == .select {
+            self.nextGoButton.isHidden = true
+            self.prevGoButton.isHidden = true
+        } else if mode == .random {
+            self.nextGoButton.isHidden = false
+            self.prevGoButton.isHidden = false
+        }
+        
+        if let playerVc = self.playerVc {
+            playerVc.player = self.player
+        } else {
+            let playerVc = AVPlayerViewController()
+            playerVc.player = self.player
+            playerVc.modalPresentationStyle = .overFullScreen
+            self.playerVc = playerVc
+            self.addChild(playerVc)
+            self.movieContainer.addSubview(playerVc.view)
+        }
+        self.player?.play()
     }
     
     @objc private func playerItemDidReachEnd(_ notification: Notification) {
         // 動画を最初に巻き戻す
-        self.player?.currentItem?.seek(to: CMTime.zero, completionHandler: { _ in self.player?.play() })
+        self.player?.currentItem?.seek(to: CMTime.zero, completionHandler: { _ in
+            if self.mode == .select {
+                self.player?.play()
+            } else if self.mode == .random {
+                self.playIndx += 1;
+                self.showVideo(showPlayer: false);
+            }
+        })
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+}
+
+class SelectVideoShowManager: NSObject, UITableViewDelegate, UITableViewDataSource {
+    
+    private let mainVc:ViewController
+    
+    init(mainVc:ViewController) {
+        self.mainVc = mainVc;
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videoNames.count
+        return self.mainVc.videoNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         var conf = cell.defaultContentConfiguration()
-        conf.text = videoNames[indexPath.row].title
+        conf.text = self.mainVc.videoNames[indexPath.row].title
         cell.contentConfiguration = conf
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        table?.dismiss(animated: true, completion: {
-            self.showVideo(indexPath.row)
+        self.mainVc.table?.dismiss(animated: true, completion: {
+            self.mainVc.showVideo(indexPath.row)
         })
     }
+    
 }
 
